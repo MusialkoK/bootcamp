@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+</head>
+<body>
+<form th:action="@{'/course/signup'}" th:object="${signup}" th:method="'post'">
+    <p>Student: </p>
+    <label for="student-firstname">First name: </label>
+    <input type="text" id="student-firstname" th:field="*{student.firstName}"><br>
+    <label for="student-lastName">Last name: </label>
+    <input type="text" id="student-lastName" th:field="*{student.lastName}"><br>
+    <label for="student-email">E-mail: </label>
+    <input type="text" id="student-email" th:field="*{student.email}"><br>
+    <label for="student-phone">Phone number: </label>
+    <input type="text" id="student-phone" th:field="*{student.phone}"><br>
+    <p>Course: </p>
+    <label for="course-select">Course name: </label>
+    <select id="course-select" th:field="*{course.name}">
+        <option th:each="courseName: ${coursesNames}" th:text="${courseName}" th:value="${courseName}"></option>
+    </select><br>
+    <label for="mode-select">Course mode: </label>
+    <select id="mode-select" th:field="*{course.courseMode}">
+        <option th:each="courseMode: ${coursesModes}" th:text="${courseMode}" th:value="${courseMode}"></option>
+    </select><br>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

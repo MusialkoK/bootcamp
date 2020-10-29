@@ -11,6 +11,14 @@ public class HomeController {
     @GetMapping
     public String home() {
         System.out.println("Hello world!");
-        return "home";
+        return "redirect:course/list";
     }
+
+    @GetMapping("main-page")
+    public String homePage() {
+        System.out.println("Hello world!");
+        return "forward:course/list";
+    }
+
+
 }
