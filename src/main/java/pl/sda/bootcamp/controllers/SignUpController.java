@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = "/course/signup")
+@RequestMapping(value = "/course")
 public class SignUpController {
     private List<Course> courses = new ArrayList<>();
     private List<String> courseNames = new ArrayList<>();
 
-    @GetMapping()
+    @GetMapping("/signup")
     public String create(Model model){
         createCourses();
         courseNames = getCoursesNames();
@@ -27,7 +27,7 @@ public class SignUpController {
         model.addAttribute("coursesModes", CourseMode.values());
         return "/course/signup";
     }
-    @PostMapping()
+    @PostMapping("/signup")
     public String get(@ModelAttribute() SignUpDTO signup){
         System.out.println(signup.getCourse());
         System.out.println(signup.getStudent());
