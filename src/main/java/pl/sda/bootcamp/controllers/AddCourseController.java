@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/course/add")
+@RequestMapping(value = "/courses/add")
 public class AddCourseController {
 
     private List<String> cityList = Arrays.asList("Warszawa", "Szczecin", "Gdańsk");
