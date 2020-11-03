@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/courses/add")
+@RequestMapping(value = "/course/add")
 public class AddCourseController {
 
     private List<String> cityList = Arrays.asList("Warszawa", "Szczecin", "Gdańsk");
@@ -23,7 +23,7 @@ public class AddCourseController {
         model.addAttribute("trainerList", trainerList);
         model.addAttribute("course", Course.builder().build());
         model.addAttribute("modes", CourseMode.values());
-        return "/course/add";
+        return "course/add";
     }
 
     @PostMapping()
@@ -32,7 +32,7 @@ public class AddCourseController {
         model.addAttribute("createdCourse", course);
         model.addAttribute("cityList", cityList);model.addAttribute("trainerList", trainerList);
 
-        return "/course/add";
+        return "course/add";
     }
 
 
