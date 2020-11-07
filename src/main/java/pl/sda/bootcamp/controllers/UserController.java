@@ -13,25 +13,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = "/course/signup")
-public class SignUpController {
+@RequestMapping(value = "/user")
+public class UserController {
     private List<Course> courses = new ArrayList<>();
     private List<String> courseNames = new ArrayList<>();
 
-    @GetMapping
+    @GetMapping(value = "/signup")
     public String create(Model model){
         createCourses();
         courseNames = getCoursesNames();
         model.addAttribute("signup", SignUpDTO.builder().build());
         model.addAttribute("coursesNames", courseNames);
         model.addAttribute("coursesModes", CourseMode.values());
-        return "course/signup";
+        return "user/signup";
     }
-    @PostMapping
+    @PostMapping(value = "/signup")
     public String get(@ModelAttribute() SignUpDTO signup){
         System.out.println(signup.getCourse());
-        System.out.println(signup.getStudent());
-        return "course/list";
+        return "user/list";
     }
 
     private void createCourses(){
