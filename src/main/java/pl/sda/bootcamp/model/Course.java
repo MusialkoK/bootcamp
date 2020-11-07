@@ -14,16 +14,16 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 public class Course {
-
-    String name;
-    String city;
+    private Long id;
+    private String name;
+    private String city;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDate startDate;
+    private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    LocalDate finishDate;
-    double price;
-    String trainer;
-    CourseMode courseMode = CourseMode.DAY;
+    private LocalDate finishDate;
+    private double price;
+    private String trainer;
+    private CourseMode mode;
 
     @Override
     public String toString() {
@@ -34,7 +34,7 @@ public class Course {
                 ", finishDate='" + finishDate + '\'' +
                 ", price=" + price +
                 ", trainer='" + trainer + '\'' +
-                ", courseMode=" + courseMode +
+                ", courseMode=" + mode +
                 '}';
     }
 }

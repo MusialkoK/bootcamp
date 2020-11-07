@@ -8,6 +8,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 public class SignUpDTO {
-    Student student = new Student();
+    User user = new User();
     Course course = new Course();
 }
