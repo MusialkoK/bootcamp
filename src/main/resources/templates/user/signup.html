@@ -6,20 +6,20 @@
     <title>Sign up</title>
 </head>
 <body>
-<form th:action="@{'/user/signup'}" th:object="${signup}" th:method="'post'">
+<form th:action="@{'/user/signup'}" th:object="${user}" th:method="'post'">
     <p>Student: </p>
     <label for="student-firstname">First name: </label>
-    <input type="text" id="student-firstname" th:field="*{user.firstName}"><br>
+    <input type="text" id="student-firstname" th:field="*{firstName}"><br>
     <label for="student-lastName">Last name: </label>
-    <input type="text" id="student-lastName" th:field="*{user.lastName}"><br>
+    <input type="text" id="student-lastName" th:field="*{lastName}"><br>
     <label for="student-email">E-mail: </label>
-    <input type="text" id="student-email" th:field="*{user.email}"><br>
+    <input type="text" id="student-email" th:field="*{email}"><br>
     <label for="student-phone">Phone number: </label>
-    <input type="text" id="student-phone" th:field="*{user.phone}"><br>
+    <input type="text" id="student-phone" th:field="*{phone}"><br>
     <p>Course: </p>
     <label>Course name: </label>
     <div th:each="course: ${coursesList}">
-        <input type="checkbox" th:name="coursesId" th:value="${course.id}">
+        <input type="checkbox" th:field="*{courseList}" th:value="${course.id}">
         <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
     </div>
     <input type="submit" value="Save">

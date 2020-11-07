@@ -1,28 +1,30 @@
 package pl.sda.bootcamp.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.bootcamp.model.City;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.CourseMode;
-
-import java.util.Arrays;
-import java.util.List;
+import pl.sda.bootcamp.service.CourseService;
+import pl.sda.bootcamp.service.TrainerService;
 
 @Controller
 @RequestMapping(value = "/course")
+@AllArgsConstructor
 public class CourseController {
 
-    private List<String> cityList = Arrays.asList("Warszawa", "Szczecin", "Gdańsk");
-    private List<String> trainerList = Arrays.asList("Wojciech Potocki", "Adam Abacki", "Bartosz Babacki", "Cyryl Cabacki");
+    private final CourseService courseService;
+    private final TrainerService trainerService;
 
     @GetMapping(value = "/list")
-    public String courseList(@RequestParam(name = "courseId", required = false) String id){
-        System.out.println("Course id: "+ id);
+    public String courseList(Model model){
+        model.addAttribute("courseList", courseService.getCoursesList());
         return "course/list";
     }
     @GetMapping(value = "/list/{courseId}")
-    public String courseList2(@PathVariable String courseId,  Model model){
+    public String getCourse(@PathVariable String courseId,  Model model){
         model.addAttribute("id", courseId);
         System.out.println("Course id: "+ courseId);
         return "course/list";
@@ -30,8 +32,8 @@ public class CourseController {
 
     @GetMapping(value = "/add")
     public String addCourse(Model model) {
-        model.addAttribute("cityList", cityList);
-        model.addAttribute("trainerList", trainerList);
+        model.addAttribute("cityList", City.values());
+        model.addAttribute("trainerList", trainerService.getTrainerList());
         model.addAttribute("course", Course.builder().build());
         model.addAttribute("modes", CourseMode.values());
         return "course/add";
@@ -40,9 +42,11 @@ public class CourseController {
     @PostMapping(value = "/add")
     public String create(@ModelAttribute Course course, Model model) {
         System.out.println(course);
+        courseService.saveCourse(course);
         model.addAttribute("createdCourse", course);
-        model.addAttribute("cityList", cityList);
-        model.addAttribute("trainerList", trainerList);
+        model.addAttribute("cityList", City.values());
+        model.addAttribute("trainerList", trainerService.getTrainerList());
+        model.addAttribute("modes", CourseMode.values());
         return "course/add";
     }
 }

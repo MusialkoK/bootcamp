@@ -2,19 +2,24 @@ package pl.sda.bootcamp.model;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
+@Entity
 public class User {
-    String firstName;
-    String lastName;
-    String email;
-    String phone;
-    List<Course> courseList;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    @ManyToMany
+    private List<Course> courseList;
 
     @Override
     public String toString() {

@@ -20,7 +20,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String city;
+    @Enumerated(EnumType.STRING)
+    private City city;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
