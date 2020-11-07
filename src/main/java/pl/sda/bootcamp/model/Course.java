@@ -4,25 +4,30 @@ import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 @Builder
 @NoArgsConstructor
+@Entity
+
 public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String city;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishDate;
     private double price;
     private String trainer;
+    @Enumerated(EnumType.STRING)
     private CourseMode mode;
 
     @Override

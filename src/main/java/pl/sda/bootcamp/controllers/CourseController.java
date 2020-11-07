@@ -16,19 +16,19 @@ public class CourseController {
     private List<String> cityList = Arrays.asList("Warszawa", "Szczecin", "Gdańsk");
     private List<String> trainerList = Arrays.asList("Wojciech Potocki", "Adam Abacki", "Bartosz Babacki", "Cyryl Cabacki");
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list")
     public String courseList(@RequestParam(name = "courseId", required = false) String id){
         System.out.println("Course id: "+ id);
         return "course/list";
     }
-    @GetMapping("/list/{courseId}")
+    @GetMapping(value = "/list/{courseId}")
     public String courseList2(@PathVariable String courseId,  Model model){
         model.addAttribute("id", courseId);
         System.out.println("Course id: "+ courseId);
         return "course/list";
     }
 
-    @GetMapping()
+    @GetMapping(value = "/add")
     public String addCourse(Model model) {
         model.addAttribute("cityList", cityList);
         model.addAttribute("trainerList", trainerList);
@@ -37,12 +37,12 @@ public class CourseController {
         return "course/add";
     }
 
-    @PostMapping()
+    @PostMapping(value = "/add")
     public String create(@ModelAttribute Course course, Model model) {
         System.out.println(course);
         model.addAttribute("createdCourse", course);
-        model.addAttribute("cityList", cityList);model.addAttribute("trainerList", trainerList);
-
+        model.addAttribute("cityList", cityList);
+        model.addAttribute("trainerList", trainerList);
         return "course/add";
     }
 }
