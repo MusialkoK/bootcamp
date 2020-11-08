@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trainer Edit</title>
+</head>
+<body>
+<form th:action="@{'/admin/user/edit/trainer'}" th:object="${userToEdit}" th:method="'post'">
+    <h1>Trainer Edit: </h1>
+    <label for="id">ID: </label>
+    <input type="text" id="id" th:field="*{id}"><br>
+    <label for="role">Role: </label>
+    <input type="text" id="role" th:field="*{role.id}"><br>
+    <label for="student-firstname">First name: </label>
+    <input type="text" id="student-firstname" th:field="*{firstName}"><br>
+    <label for="student-lastName">Last name: </label>
+    <input type="text" id="student-lastName" th:field="*{lastName}"><br>
+    <label for="student-email">E-mail: </label>
+    <input type="text" id="student-email" th:field="*{email}"><br>
+    <label for="student-phone">Phone number: </label>
+    <input type="text" id="student-phone" th:field="*{phone}"><br>
+    <label for="hour-price">Hour Price: </label>
+    <input type="text" id="hour-price" th:field="*{hourPrice}"><br>
+    <h2>Trainer for courses:</h2>
+    <div th:each="course: *{trainerCourses}">
+        <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
+        <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
+    </div>
+    <h3>Possible courses for this trainer:</h3>
+    <div th:each="course: ${availableCourses}">
+        <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
+        <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
+    </div>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>
