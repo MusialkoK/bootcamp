@@ -25,4 +25,8 @@ public class UserService {
         Role role = roleRepository.findByRoleName("trainer");
         return userRepository.findByRole(role).stream().distinct().collect(Collectors.toList());
     }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
 }
