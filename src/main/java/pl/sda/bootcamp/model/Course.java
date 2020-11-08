@@ -27,7 +27,11 @@ public class Course {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishDate;
     private double price;
-    private String trainer;
+
+    @ManyToOne
+    @JoinColumn(name = "trainer_id")
+    private User trainer;
+
     @Enumerated(EnumType.STRING)
     private CourseMode mode;
 

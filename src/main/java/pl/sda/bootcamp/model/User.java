@@ -3,7 +3,9 @@ package pl.sda.bootcamp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
+
 
 @AllArgsConstructor
 @Data
@@ -18,16 +20,30 @@ public class User {
     private String lastName;
     private String email;
     private String phone;
+    private BigDecimal hourPrice;
     @ManyToMany
     private List<Course> courseList;
 
+    @OneToMany(mappedBy = "trainer")
+    private List<Course> trainerCourses;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @Override
     public String toString() {
-        return "Student{" +
+        return "User{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
     }
+
+    public String nameToString() {
+        return (firstName != null && lastName != null) ? firstName + " " + lastName : "";
+    }
+
 }
+

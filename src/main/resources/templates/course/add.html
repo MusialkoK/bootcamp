@@ -27,7 +27,7 @@
     </select><br>
     <label for="trainer">Trainer: </label>
     <select id="trainer" th:field="*{trainer}">
-        <option th:each="trainer: ${trainerList}" th:text="${trainer}" th:value="${trainer}"></option>
+        <option th:each="trainer: ${trainerList}" th:text="${trainer.nameToString()}" th:value="${trainer.id}"></option>
     </select><br>
     <input type="submit" value="Save">
 </form>

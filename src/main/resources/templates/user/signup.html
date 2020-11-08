@@ -16,7 +16,6 @@
     <input type="text" id="student-email" th:field="*{email}"><br>
     <label for="student-phone">Phone number: </label>
     <input type="text" id="student-phone" th:field="*{phone}"><br>
-    <p>Course: </p>
     <label>Course name: </label>
     <div th:each="course: ${coursesList}">
         <input type="checkbox" th:field="*{courseList}" th:value="${course.id}">

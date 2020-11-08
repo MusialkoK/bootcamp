@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.City;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.CourseMode;
+import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.service.CourseService;
-import pl.sda.bootcamp.service.TrainerService;
+import pl.sda.bootcamp.service.UserService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/course")
@@ -16,7 +20,7 @@ import pl.sda.bootcamp.service.TrainerService;
 public class CourseController {
 
     private final CourseService courseService;
-    private final TrainerService trainerService;
+    private final UserService userService;
 
     @GetMapping(value = "/list")
     public String courseList(Model model){
@@ -33,7 +37,7 @@ public class CourseController {
     @GetMapping(value = "/add")
     public String addCourse(Model model) {
         model.addAttribute("cityList", City.values());
-        model.addAttribute("trainerList", trainerService.getTrainerList());
+        model.addAttribute("trainerList", userService.getTrainersList());
         model.addAttribute("course", Course.builder().build());
         model.addAttribute("modes", CourseMode.values());
         return "course/add";
@@ -45,7 +49,7 @@ public class CourseController {
         courseService.saveCourse(course);
         model.addAttribute("createdCourse", course);
         model.addAttribute("cityList", City.values());
-        model.addAttribute("trainerList", trainerService.getTrainerList());
+        model.addAttribute("trainerList", userService.getTrainersList());
         model.addAttribute("modes", CourseMode.values());
         return "course/add";
     }

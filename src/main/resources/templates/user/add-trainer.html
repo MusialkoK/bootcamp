@@ -6,13 +6,17 @@
     <title>Adding trainer</title>
 </head>
 <body>
-<p th:if="${createdTrainer}">Trainer <span th:text="${createdTrainer.name}"></span> <span th:text="${createdTrainer.lastName}"></span></p>
+<p th:if="${createdTrainer}">Trainer <span th:text="${createdTrainer.firstName}"></span> <span th:text="${createdTrainer.lastName}"></span></p>
 <p th:unless="${createdTrainer}">Add Trainer: </p>
-<form th:action="@{'/trainer/add'}" th:method="'post'" th:object="${trainer}">
+<form th:action="@{'/user/add-trainer'}" th:method="'post'" th:object="${user}">
     <label for="name">First Name: </label>
-    <input type="text" id="name" th:field="*{name}"><br>
+    <input type="text" id="name" th:field="*{firstName}"><br>
     <label for="last-name">Last name: </label>
     <input type="text" id="last-name" th:field="*{lastName}"><br>
+    <label for="student-email">E-mail: </label>
+    <input type="text" id="student-email" th:field="*{email}"><br>
+    <label for="student-phone">Phone number: </label>
+    <input type="text" id="student-phone" th:field="*{phone}"><br>
     <label for="hour-price">Hour Price: </label>
     <input type="number" id="hour-price" th:field="*{hourPrice}"><br>
     <input type="submit" value="Save">
