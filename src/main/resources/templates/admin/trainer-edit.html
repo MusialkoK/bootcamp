@@ -27,11 +27,13 @@
         <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
         <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
     </div>
+    <p th:if="*{trainerCourses.isEmpty()}">No course available</p>
     <h3>Possible courses for this trainer:</h3>
     <div th:each="course: ${availableCourses}">
         <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
         <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
     </div>
+    <p th:if="${availableCourses.isEmpty()}">No course available</p>
     <input type="submit" value="Save">
 </form>
 </body>
