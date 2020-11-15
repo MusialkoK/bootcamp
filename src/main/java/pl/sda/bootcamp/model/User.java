@@ -38,6 +38,8 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    private String password;
+
     @Override
     public String toString() {
         return "User{" +

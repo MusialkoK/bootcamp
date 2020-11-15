@@ -8,13 +8,17 @@
 </head>
 <body>
 <h1>Welcome to bootcamp manager</h1>
-<h2>What do you want to do:</h2>
+<h2>Select panel...</h2>
 <div>
+    <form th:action="@{'/panel'}" th:method="'post'">
+        <button type="submit" name="panel" value="admin">Admin panel</button>
+        <button type="submit" name="panel" value="trainer">Trainer panel</button>
+        <button type="submit" name="panel" value="client">Client panel</button>
+    </form>
+    <h2>...or work on courses</h2>
     <form th:action="@{'/action'}" th:method="'post'">
-        <button type="submit" name="action" value="courses">Display course list</button>
-        <button type="submit" name="action" value="users">Display user list</button><br><br>
+        <button type="submit" name="action" value="courses">View course list</button>
         <button type="submit" name="action" value="add-course">Add course</button>
-        <button type="submit" name="action" value="add-trainer">Add trainer</button>
     </form>
 </div>
 

@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="thymeleaf.org" xmlns:sec="thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Course list</title>
+    <link rel="stylesheet" th:href="@{list.css}">
 </head>
 <body>
-<h1 th:text="${id}"></h1>
-<table>
+<h2>Hello, <span sec:authentication="name"></span></h2>
+
+<header th:replace="fragments/header :: menu"></header>
+
+
+<h1>List of courses:</h1>
+<table class="blueTable">
     <thead>
-        <th>ID</th>
-        <th>Course Name</th>
-        <th>Start Date</th>
-        <th>Finish Date</th>
-        <th>City</th>
-        <th>Price</th>
-        <th>Mode</th>
-        <th>Trainer</th>
+    <th>ID</th>
+    <th>Course Name</th>
+    <th>Start Date</th>
+    <th>Finish Date</th>
+    <th>City</th>
+    <th>Price</th>
+    <th>Mode</th>
+    <th>Trainer</th>
     </thead>
     <tbody>
     <tr th:each="course : ${courseList}">
@@ -31,5 +36,10 @@
     </tr>
     </tbody>
 </table>
+<br>
+<form th:action="@{'/course/action'}" th:method="'post'">
+    <button type="submit" name="action" value="home">Home</button>
+    <button type="submit" name="action" value="add-course">Add Course</button>
+</form>
 </body>
 </html>

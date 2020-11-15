@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.City;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.CourseMode;
-import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.service.CourseService;
 import pl.sda.bootcamp.service.UserService;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/course")
@@ -52,5 +49,15 @@ public class CourseController {
         model.addAttribute("trainerList", userService.getTrainersList());
         model.addAttribute("modes", CourseMode.values());
         return "course/add";
+    }
+
+    @PostMapping(value = "/action", params = "action=home")
+    public String goToHome(){
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "/action", params = "action=add-course")
+    public String addCourse(){
+        return "redirect:/course/add";
     }
 }

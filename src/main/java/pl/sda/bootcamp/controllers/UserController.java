@@ -38,24 +38,4 @@ public class UserController {
         userService.save(user);
         return "user/signup-confirmed";
     }
-
-    @GetMapping(value = "/add-trainer")
-    public String form(Model model){
-        model.addAttribute("user", User.builder().build());
-        return "user/add-trainer";
-    }
-
-    @PostMapping(value = "/add-trainer")
-    public String post(@Valid @ModelAttribute User createdTrainer, BindingResult bindingResult, Model model){
-        model.addAttribute("createdTrainer", createdTrainer);
-        if(bindingResult.hasErrors()){
-            List<String> errorMessages = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
-            model.addAttribute("errorMessages", errorMessages);
-            return "user/add-trainer";
-        }else{
-            createdTrainer.setRole(roleService.findByName("trainer"));
-            userService.save(createdTrainer);
-            return "user/add-trainer-confirmed";
-        }
-    }
 }
