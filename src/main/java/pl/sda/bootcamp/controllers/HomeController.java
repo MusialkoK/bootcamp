@@ -39,6 +39,11 @@ public class HomeController {
         return "redirect:/course/add";
     }
 
+    @PostMapping(value = "/login")
+    public String login(){
+        return "redirect:/login";
+    }
+
 //    @GetMapping
 //    public String home() {
 //        System.out.println("Hello world!");

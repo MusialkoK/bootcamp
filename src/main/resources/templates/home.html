@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>BootCamp</title>
     <link rel="stylesheet" th:href="@{home.css}">
 </head>
 <body>
+<h3 sec:authorize="isAuthenticated()">Hello, <span sec:authentication="principal.authorities"></span></h3>
 <h1>Welcome to bootcamp manager</h1>
-<h2>Select panel...</h2>
-<div>
-    <form th:action="@{'/panel'}" th:method="'post'">
-        <button type="submit" name="panel" value="admin">Admin panel</button>
-        <button type="submit" name="panel" value="trainer">Trainer panel</button>
-        <button type="submit" name="panel" value="client">Client panel</button>
-    </form>
-    <h2>...or work on courses</h2>
-    <form th:action="@{'/action'}" th:method="'post'">
-        <button type="submit" name="action" value="courses">View course list</button>
-        <button type="submit" name="action" value="add-course">Add course</button>
-    </form>
-</div>
+
+<h2 sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span>, actions available for you:</h2>
+<h2 sec:authorize="isAnonymous()">Welcome stranger, actions available for you: </h2>
+
+<header th:replace="fragments/header :: menu"></header>
 
 
 </body>

@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="thymeleaf.org" xmlns:sec="thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<!--    <h1 th:fragment="title">Lorem ipsum</h1>-->
 
-<nav th:fragment="menu">
-    <ul>
-        <li><a>Course List</a></li>
-        <li><a>Add course</a></li>
-        <li><a>User List</a></li>
-        <li><a>Logout</a></li>
-        <li><a>Login</a></li>
-    </ul>
-</nav>
+<div th:fragment="welcome">
+    <h2 sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span></h2>
+    <h2 sec:authorize="isAnonymous()">Welcome stranger</h2>
+
+</div>
+
+<div th:fragment="menu">
+    <form action="/course/list">
+        <button type="submit">View Course List</button><br><br>
+    </form>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form action="/course/add">
+            <button type="submit">Add course</button><br><br>
+        </form>
+        <form action="/admin/user/list">
+            <button type="submit">User list</button><br><br>
+        </form>
+    </div>
+    <div sec:authorize="hasRole('ROLE_TRAINER')">
+        <form th:action="@{/trainer-dashboard/courses}" th:method="'post'">
+            <button type="submit">View my courses</button><br><br>
+        </form>
+        <form action="/admin/user/edit">
+            <button type="submit">Edit profile</button><br><br>
+        </form>
+    </div>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <form action="/course/list">
+            <button type="submit">View my courses</button><br><br>
+        </form>
+        <form action="/admin/user/edit">
+            <button type="submit">Edit profile</button><br><br>
+        </form>
+    </div>
+    <form sec:authorize="isAnonymous()" th:action="@{/login}" th:method="post">
+        <button type="submit">Login</button><br><br>
+    </form>
+    <form sec:authorize="isAuthenticated()" action="/logout">
+        <button type="submit">Logout</button><br><br>
+    </form>
+</div>
 
 </body>
 </html>

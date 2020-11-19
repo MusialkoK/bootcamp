@@ -28,6 +28,7 @@ public class User {
     private String email;
     private String phone;
     private BigDecimal hourPrice;
+
     @ManyToMany
     private List<Course> courseList;
 
@@ -39,6 +40,7 @@ public class User {
     private Role role;
 
     private String password;
+    private String confirmPassword;
 
     @Override
     public String toString() {

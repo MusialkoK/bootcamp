@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -27,6 +28,9 @@ public class Course {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate finishDate;
     private double price;
+
+    @ManyToMany(mappedBy = "courseList")
+    private List<User> users;
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")

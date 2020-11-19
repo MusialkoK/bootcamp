@@ -2,6 +2,7 @@ package pl.sda.bootcamp.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import pl.sda.bootcamp.service.RoleService;
 import pl.sda.bootcamp.service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,13 @@ public class TrainerController {
             userService.save(createdTrainer);
             return "trainer/add-trainer-confirmed";
         }
+    }
+
+    @PostMapping(value = "/courses")
+    public String viewCourses(Authentication authentication){
+        User trainer = (User) authentication.getPrincipal();
+        System.out.println(trainer.getId());
+        return "";
     }
 
 }

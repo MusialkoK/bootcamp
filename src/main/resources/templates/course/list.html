@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="thymeleaf.org" xmlns:sec="thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Course list</title>
     <link rel="stylesheet" th:href="@{list.css}">
 </head>
 <body>
-<h2>Hello, <span sec:authentication="name"></span></h2>
-
-<header th:replace="fragments/header :: menu"></header>
-
 
 <h1>List of courses:</h1>
 <table class="blueTable">
