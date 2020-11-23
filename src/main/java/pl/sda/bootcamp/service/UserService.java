@@ -27,7 +27,7 @@ public class UserService {
 
 
     public List<User> getTrainersList(){
-        Role role = roleRepository.findByRoleName("trainer");
+        Role role = roleRepository.findByRoleName("ROLE_TRAINER");
         return userRepository.findByRole(role).stream().distinct().collect(Collectors.toList());
     }
 
@@ -57,6 +57,10 @@ public class UserService {
             courseRepository.save(c);
         });
         this.save(user);
+    }
+
+    public User getUserByMail(String email){
+        return userRepository.findByEmail(email).get();
     }
 
 }

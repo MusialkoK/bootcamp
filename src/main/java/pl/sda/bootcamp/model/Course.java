@@ -51,4 +51,10 @@ public class Course {
                 ", courseMode=" + mode +
                 '}';
     }
+
+    public String getTrainerName(){
+        return trainer!=null ? trainer.nameToString() : "NO TRAINER ASSIGN";
+    }
+
+
 }

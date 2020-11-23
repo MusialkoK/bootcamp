@@ -38,4 +38,10 @@ public class UserController {
         userService.save(user);
         return "user/signup-confirmed";
     }
+
+    @GetMapping(value = "/dashboard")
+    public String userDashboard() {
+        return "user/dashboard";
+    }
 }
+

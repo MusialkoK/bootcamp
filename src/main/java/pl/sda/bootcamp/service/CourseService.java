@@ -26,4 +26,14 @@ public class CourseService {
         return courseRepository.findById(id).get();
     }
 
+    public boolean deleteCourse(Long id){
+        try{
+            courseRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

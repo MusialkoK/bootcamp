@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(value = "/trainer-dashboard")
+@RequestMapping(value = "/trainer")
 public class TrainerController {
 
     private final UserService userService;
@@ -57,6 +57,13 @@ public class TrainerController {
         User trainer = (User) authentication.getPrincipal();
         System.out.println(trainer.getId());
         return "";
+    }
+
+    @GetMapping(value = "/dashboard")
+    public String dashboard(Model model, Principal principal){
+        User user = userService.getUserByMail(principal.getName());
+        model.addAttribute("user",user);
+        return "trainer/dashboard";
     }
 
 }

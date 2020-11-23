@@ -1,6 +1,7 @@
 package pl.sda.bootcamp.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,21 +14,24 @@ import pl.sda.bootcamp.service.UserService;
 
 @Controller
 @RequestMapping(value = "/course")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CourseService courseService;
     private final UserService userService;
 
+    private Long currentlyEditedCourse;
+
     @GetMapping(value = "/list")
-    public String courseList(Model model){
+    public String courseList(Model model) {
         model.addAttribute("courseList", courseService.getCoursesList());
         return "course/list";
     }
+
     @GetMapping(value = "/list/{courseId}")
-    public String getCourse(@PathVariable String courseId,  Model model){
+    public String getCourse(@PathVariable String courseId, Model model) {
         model.addAttribute("id", courseId);
-        System.out.println("Course id: "+ courseId);
+        System.out.println("Course id: " + courseId);
         return "course/list";
     }
 
@@ -42,22 +46,40 @@ public class CourseController {
 
     @PostMapping(value = "/add")
     public String create(@ModelAttribute Course course, Model model) {
-        System.out.println(course);
         courseService.saveCourse(course);
         model.addAttribute("createdCourse", course);
         model.addAttribute("cityList", City.values());
         model.addAttribute("trainerList", userService.getTrainersList());
         model.addAttribute("modes", CourseMode.values());
-        return "course/add";
+        model.addAttribute("courseList", courseService.getCoursesList());
+        return "course/list";
     }
 
-    @PostMapping(value = "/action", params = "action=home")
-    public String goToHome(){
-        return "redirect:/";
+    @PostMapping(value = "/delete/{id}")
+    public String deleteCourse(@PathVariable Long id, Model model) {
+        Course course = courseService.getCourseById(id);
+        courseService.deleteCourse(id);
+        model.addAttribute("courseList", courseService.getCoursesList());
+        return "redirect:/course/list";
     }
 
-    @PostMapping(value = "/action", params = "action=add-course")
-    public String addCourse(){
-        return "redirect:/course/add";
+
+    @PostMapping(value = "/edit/{id}")
+    public String editCourse(@PathVariable Long id, Model model) {
+        Course course = courseService.getCourseById(id);
+        currentlyEditedCourse = id;
+        model.addAttribute("course", course);
+        model.addAttribute("cityList", City.values());
+        model.addAttribute("trainerList", userService.getTrainersList());
+        model.addAttribute("modes", CourseMode.values());
+        return "course/edit";
+    }
+
+    @PostMapping(value = "/edit")
+    public String edit(@ModelAttribute Course course) {
+        course.setId(currentlyEditedCourse);
+        currentlyEditedCourse = null;
+        courseService.saveCourse(course);
+        return "redirect:/course/list";
     }
 }

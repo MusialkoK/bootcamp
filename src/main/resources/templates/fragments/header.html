@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,8 +7,8 @@
 <body>
 
 <div th:fragment="welcome">
-    <h2 sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span></h2>
-    <h2 sec:authorize="isAnonymous()">Welcome stranger</h2>
+    <h2 sec:authorize="isAuthenticated()">Welcome <span th:text="${user.getFirstName()}"></span>, actions available for you:</h2>
+    <h2 sec:authorize="isAnonymous()">Welcome Stranger, actions available for you: </h2>
 
 </div>
 
@@ -26,7 +26,7 @@
     </div>
     <div sec:authorize="hasRole('ROLE_TRAINER')">
         <form th:action="@{/trainer-dashboard/courses}" th:method="'post'">
-            <button type="submit">View my courses</button><br><br>
+            <button type="submit">View My courses</button><br><br>
         </form>
         <form action="/admin/user/edit">
             <button type="submit">Edit profile</button><br><br>

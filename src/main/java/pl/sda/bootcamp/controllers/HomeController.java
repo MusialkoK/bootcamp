@@ -1,60 +1,56 @@
 package pl.sda.bootcamp.controllers;
 
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sda.bootcamp.model.User;
+import pl.sda.bootcamp.service.UserService;
+
+import java.security.Principal;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping
+@RequestMapping(value = "")
+@AllArgsConstructor
 public class HomeController {
 
+    private final UserService userService;
+
     @GetMapping
-    public String home(){
-        return "home";
+    public String home(Model model, Authentication authentication, Principal principal) {
+        User user = new User();
+        if (principal != null) {
+            user = userService.getUserByMail(principal.getName());
+        } else {
+            user.setFirstName("Stranger");
+        }
+        model.addAttribute("user", user);
+
+        if(authentication==null){
+            return "home";
+        }else{
+            return redirect(authentication.getAuthorities());
+        }
     }
 
-    @PostMapping(value = "/panel", params = "panel=admin")
-    public String goToUserList(){
-        return "redirect:/admin/user/list";
+    private String redirect(Collection<? extends GrantedAuthority> grantedAuthorities) {
+        String authority = grantedAuthorities.stream().map(GrantedAuthority::getAuthority).findFirst().get();
+        switch (authority) {
+            case "ROLE_ADMIN":
+                return "redirect:/admin/dashboard";
+            case "ROLE_TRAINER":
+                return "redirect:/trainer/dashboard";
+            case "ROLE_USER":
+                return "redirect:/user-dashboard";
+            default:
+                return "home";
+        }
     }
-
-    @PostMapping(value = "/panel", params = "panel=client")
-    public String goToClientDashboard(){
-        return "redirect:/client-dashboard";
-    }
-
-    @PostMapping(value = "/panel", params = "panel=trainer")
-    public String goToTrainerDashboard(){
-        return "redirect:/trainer-dashboard/add-trainer";
-    }
-
-    @PostMapping(value = "/action", params = "action=courses")
-    public String viewCourseList(){
-        return "redirect:/course/list";
-    }
-
-    @PostMapping(value = "/action", params = "action=add-course")
-    public String addCourse(){
-        return "redirect:/course/add";
-    }
-
-    @PostMapping(value = "/login")
-    public String login(){
-        return "redirect:/login";
-    }
-
-//    @GetMapping
-//    public String home() {
-//        System.out.println("Hello world!");
-//        return "redirect:course/list";
-//    }
-////
-//    @GetMapping("main-page")
-//    public String homePage() {
-//        System.out.println("Hello world!");
-//        return "forward:course/list";
-//    }
-
-
 }

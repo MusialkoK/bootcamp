@@ -20,9 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    @Autowired
-    AuthenticationSuccessHandler successHandler;
-
     public SecurityConfig(@Qualifier("appUserDetailsService") final UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -30,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .anyRequest().permitAll()
                 .and()
-                .formLogin().successHandler(successHandler)
+                .formLogin()
                 .permitAll()
                 .and()
                 .logout().and().csrf().disable();

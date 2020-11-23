@@ -1,14 +1,17 @@
 package pl.sda.bootcamp.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.User;
+import pl.sda.bootcamp.security.AppUserDetailsService;
 import pl.sda.bootcamp.service.CourseService;
 import pl.sda.bootcamp.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -18,6 +21,7 @@ public class AdminController {
 
     private final UserService userService;
     private final CourseService courseService;
+    private final AppUserDetailsService userDetailsService;
 
     @GetMapping(value = "/user/list")
     public String viewUserList(Model model){
@@ -60,5 +64,12 @@ public class AdminController {
     public String saveEditedTrainer(@ModelAttribute User editedUser){
         userService.updateTrainer(editedUser);
         return "redirect:/admin/user/list";
+    }
+
+    @GetMapping(value = "/dashboard")
+    public String dashboard(Model model, Principal principal){
+        User user = userService.getUserByMail(principal.getName());
+        model.addAttribute("user",user);
+        return "admin/dashboard";
     }
 }

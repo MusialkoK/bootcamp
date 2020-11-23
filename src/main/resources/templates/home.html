@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>BootCamp</title>
     <link rel="stylesheet" th:href="@{home.css}">
 </head>
 <body>
-<h3 sec:authorize="isAuthenticated()">Hello, <span sec:authentication="principal.authorities"></span></h3>
-<h1>Welcome to bootcamp manager</h1>
+<h1>Bootcamp manager</h1>
 
-<h2 sec:authorize="isAuthenticated()">Welcome <span sec:authentication="name"></span>, actions available for you:</h2>
-<h2 sec:authorize="isAnonymous()">Welcome stranger, actions available for you: </h2>
+<header th:replace="fragments/header :: welcome"></header>
 
 <header th:replace="fragments/header :: menu"></header>
 
