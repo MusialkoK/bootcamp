@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.Collection;
 
 @Controller
-@RequestMapping(value = "")
+@RequestMapping(value = "/")
 @AllArgsConstructor
 public class HomeController {
 
