@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Users List</title>
+    <link rel="stylesheet" th:href="@{/css/general.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
 </head>
 <body>
-<table>
+<h1>List of users: </h1>
+<table class="blueTable">
     <thead>
     <th>ID</th>
     <th>First Name</th>
@@ -15,6 +18,8 @@
     <th>Phone Number</th>
     <th>Role</th>
     <th>Hour Price</th>
+    <th>Edit</th>
+    <th>Delete</th>
     </thead>
     <tbody>
     <tr th:each="user : ${userList}">
@@ -23,14 +28,30 @@
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.phone}"></td>
-        <td th:text="${user.role.getRoleName()}"></td>
+        <td th:text="${user.role.getDescription()}"></td>
         <td th:text="${user.hourPrice}"></td>
         <td>
-            <a th:href="@{/admin/user/edit/{id}(id=${user.id})}">Edit</a> /
-            <a th:href="@{/admin/user/delete/{id}(id=${user.id})}">Delete</a>
+                <form th:action="@{/admin/user/edit/{id}(id=${user.id})}" th:method="'get'">
+                <button type="submit" class="small">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="'get'">
+                <button type="submit" class="small">Delete</button>
+            </form>
         </td>
     </tr>
     </tbody>
-</table>
+</table><br>
+<form th:action="@{'/'}" th:method="'get'">
+    <button type="submit">Home</button>
+</form><br>
+<form th:action="@{'/user/signup'}" th:method="'get'">
+    <button type="submit">Add Student</button>
+</form>
+<br>
+<form th:action="@{'/trainer/add-trainer'}" th:method="'get'">
+    <button type="submit">Add Trainer</button>
+</form>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package pl.sda.bootcamp.controllers;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +63,7 @@ public class CourseController {
     }
 
 
-    @PostMapping(value = "/edit/{id}")
+    @GetMapping(value = "/edit/{id}")
     public String editCourse(@PathVariable Long id, Model model) {
         Course course = courseService.getCourseById(id);
         currentlyEditedCourse = id;

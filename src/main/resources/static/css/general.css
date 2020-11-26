@@ -1,0 +1,46 @@
+button, input[type=submit] {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #1C6EA4;
+    padding: 20px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+}
+
+html {
+    background-color: aliceblue !important;
+    font-family: "Segoe UI Light";
+}
+
+body {
+    background-color: aliceblue
+}
+
+input.error-input {
+    border-color: #ff0000;
+}
+
+h2, label {
+    font-family: "Segoe UI Light";
+    color: black;
+    font-size: 1.17em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold
+}
+
+span.import {
+    font-family: "Segoe UI Light";
+    color: black;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}

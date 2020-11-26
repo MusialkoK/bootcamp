@@ -4,23 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign up</title>
+    <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 <body>
+<li th:each="errorMessage: ${errorMessages}" th:text="${errorMessage}"></li>
+<li th:if="${passwordMatch==false}">Password and confirm password do not match</li>
+<h1>New student: </h1>
 <form th:action="@{'/user/signup'}" th:object="${user}" th:method="'post'">
-    <p>Student: </p>
     <label for="student-firstname">First name: </label>
-    <input type="text" id="student-firstname" th:field="*{firstName}"><br>
+    <input type="text" id="student-firstname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error-input'"><br>
     <label for="student-lastName">Last name: </label>
-    <input type="text" id="student-lastName" th:field="*{lastName}"><br>
+    <input type="text" id="student-lastName" th:field="*{lastName}" th:classappend="${#fields.hasErrors('lastName')} ? 'error-input'"><br>
     <label for="student-email">E-mail: </label>
-    <input type="text" id="student-email" th:field="*{email}"><br>
+    <input type="text" id="student-email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'error-input'"><br>
     <label for="student-phone">Phone number: </label>
     <input type="text" id="student-phone" th:field="*{phone}"><br>
-    <label>Course name: </label>
+    <label for="password">Password: </label>
+    <input type="password" id="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'error-input'"><br>
+    <label for="c-password">Confirm password: </label>
+    <input type="password" id="c-password" th:field="*{confirmPassword}" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'error-input'"><br>
+    <label>Courses: </label>
     <div th:each="course: ${coursesList}">
         <input type="checkbox" th:field="*{courseList}" th:value="${course.id}">
         <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
-    </div>
+    </div><br>
+    <button type="button" onclick="window.history.go(-1);">Cancel</button>
     <input type="submit" value="Save">
 </form>
 </body>

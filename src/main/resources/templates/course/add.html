@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Course</title>
-    <link rel="stylesheet" th:href="@{add.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 <body>
 <h2 th:if="${createdCourse}">Course <span th:text="${createdCourse.name}"></span> added in: <span th:text="${createdCourse.city}"></span></h2>
@@ -33,7 +33,7 @@
                 th:value="${trainer.id}"></option>
     </select><br><br>
     <button type="button" onclick="window.history.go(-1);">Cancel</button>
-    <input class="small" type="submit" value="Save">
+    <input type="submit" value="Save">
 </form>
 
 </body>

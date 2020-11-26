@@ -1,8 +1,12 @@
 package pl.sda.bootcamp.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,13 +22,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Enter name")
+    @NotEmpty(message = "{pl.sda.bootcamp.model.User.firstName.NotEmpty}")
     private String firstName;
 
     @NotEmpty(message = "{pl.sda.bootcamp.model.User.lastName.NotEmpty}")
     private String lastName;
 
-    @NotEmpty
+    @NotEmpty(message = "{pl.sda.bootcamp.model.User.email.NotEmpty}")
+    @Email(message = "{pl.sda.bootcamp.model.User.email.isMail}")
     private String email;
     private String phone;
     private BigDecimal hourPrice;
@@ -39,7 +44,9 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @NotEmpty(message = "{pl.sda.bootcamp.model.User.password.NotEmpty}")
     private String password;
+    @NotEmpty(message = "{pl.sda.bootcamp.model.User.confirmPassword.NotEmpty}")
     private String confirmPassword;
 
     @Override

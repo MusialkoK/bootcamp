@@ -6,15 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.service.UserService;
 
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "")

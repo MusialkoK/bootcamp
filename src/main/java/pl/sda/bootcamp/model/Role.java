@@ -1,6 +1,6 @@
 package pl.sda.bootcamp.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +18,7 @@ public class Role {
     private String roleName;
     @OneToMany(mappedBy = "role")
     private List<User> users;
+    private String description;
+
+
 }

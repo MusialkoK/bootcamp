@@ -5,7 +5,10 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sda.bootcamp.model.User;
 import pl.sda.bootcamp.service.CourseService;
 import pl.sda.bootcamp.service.RoleService;
@@ -33,10 +36,21 @@ public class UserController {
     }
 
     @PostMapping(value = "/signup")
-    public String get(@ModelAttribute() User user) {
-        user.setRole(roleService.findByName("user"));
-        userService.save(user);
-        return "user/signup-confirmed";
+    public String get(@Valid @ModelAttribute() User createdUser, BindingResult bindingResult, Model model) {
+        boolean passwordMatch = createdUser.getPassword().equals(createdUser.getConfirmPassword());
+        if(bindingResult.hasErrors() || !passwordMatch){
+            model.addAttribute("user", createdUser);
+            model.addAttribute("passwordMatch", passwordMatch);
+            List<String> errorMessages = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
+            model.addAttribute("errorMessages", errorMessages);
+            model.addAttribute("coursesList", courseService.getCoursesList());
+            return "user/signup";
+        }else{
+            createdUser.setRole(roleService.findByName("ROLE_USER"));
+            userService.save(createdUser);
+            return "redirect:admin/user/list";
+        }
+
     }
 
     @GetMapping(value = "/dashboard")

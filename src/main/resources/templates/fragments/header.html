@@ -7,8 +7,8 @@
 <body>
 
 <div th:fragment="welcome">
-    <h2 sec:authorize="isAuthenticated()">Welcome <span th:text="${user.getFirstName()}"></span>, actions available for you:</h2>
-    <h2 sec:authorize="isAnonymous()">Welcome Stranger, actions available for you: </h2>
+    <h1 sec:authorize="isAuthenticated()">Welcome <span th:text="${user.getFirstName()}"></span>, actions available for you:</h1>
+    <h1 sec:authorize="isAnonymous()">Welcome Stranger, actions available for you: </h1>
 
 </div>
 

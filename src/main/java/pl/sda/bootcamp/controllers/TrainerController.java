@@ -40,15 +40,17 @@ public class TrainerController {
 
     @PostMapping(value = "/add-trainer")
     public String post(@Valid @ModelAttribute User createdTrainer, BindingResult bindingResult, Model model){
-        model.addAttribute("createdTrainer", createdTrainer);
-        if(bindingResult.hasErrors()){
+        boolean passwordMatch = createdTrainer.getPassword().equals(createdTrainer.getConfirmPassword());
+        model.addAttribute("trainer", createdTrainer);
+        if(bindingResult.hasErrors() || !passwordMatch){
+            model.addAttribute("passwordMatch", passwordMatch);
             List<String> errorMessages = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
             model.addAttribute("errorMessages", errorMessages);
             return "trainer/add-trainer";
         }else{
-            createdTrainer.setRole(roleService.findByName("trainer"));
+            createdTrainer.setRole(roleService.findByName("ROLE_TRAINER"));
             userService.save(createdTrainer);
-            return "trainer/add-trainer-confirmed";
+            return "redirect:/admin/user/list";
         }
     }
 

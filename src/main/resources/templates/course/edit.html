@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit course</title>
-    <link rel="stylesheet" th:href="@{edit.css}">
+    <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 <body>
+<h2>Edit user: </h2>
 <form th:action="@{'/course/edit'}" th:object="${course}" th:method="'post'">
     <label for="course-name">Course Name: </label>
     <input type="text" id="course-name" th:field="*{name}"><br>
@@ -24,11 +25,11 @@
     <select id="mode" th:field="*{mode}">
         <option th:each="mode: ${modes}" th:text="${mode.getDescription()}" th:value="${mode}"></option>
     </select><br>
-    <label for="trainer">Trainer: Current trainer <span th:text="*{trainerName}"></span>. Change to: </label>
+    <label for="trainer">Current trainer <span th:text="*{trainerName}"></span>. Change to: </label>
     <select id="trainer" th:field="*{trainer}">
         <option th:each="trainer: ${trainerList}" th:text="${trainer.nameToString()}"
                 th:value="${trainer.id}"></option>
-    </select><br>
+    </select><br><br>
     <button type="button" onclick="window.history.go(-1);">Cancel</button>
     <input type="submit" value="Save">
 </form>
