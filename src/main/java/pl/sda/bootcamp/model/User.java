@@ -44,9 +44,9 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @NotEmpty(message = "{pl.sda.bootcamp.model.User.password.NotEmpty}")
+    //@NotEmpty(message = "{pl.sda.bootcamp.model.User.password.NotEmpty}")
     private String password;
-    @NotEmpty(message = "{pl.sda.bootcamp.model.User.confirmPassword.NotEmpty}")
+    //@NotEmpty(message = "{pl.sda.bootcamp.model.User.confirmPassword.NotEmpty}")
     private String confirmPassword;
 
     @Override

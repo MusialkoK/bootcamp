@@ -20,9 +20,9 @@
     <label for="student-phone">Phone number: </label>
     <input type="text" id="student-phone" th:field="*{phone}"><br>
     <label for="password">Password: </label>
-    <input type="password" id="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'error-input'"><br>
+    <input type="password" id="password" th:field="*{password}"><br>
     <label for="c-password">Confirm password: </label>
-    <input type="password" id="c-password" th:field="*{confirmPassword}" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'error-input'"><br>
+    <input type="password" id="c-password" th:field="*{confirmPassword}"><br>
     <label>Courses: </label>
     <div th:each="course: ${coursesList}">
         <input type="checkbox" th:field="*{courseList}" th:value="${course.id}">

@@ -18,15 +18,15 @@
     <label for="last-name">Last name: </label>
     <input type="text" id="last-name" th:field="*{lastName}" th:classappend="${#fields.hasErrors('lastName')} ? 'error-input'"><br>
     <label for="student-email">E-mail: </label>
-    <input type="text" id="student-email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'error-input'"><br>
+    <input type="email" id="student-email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'error-input'"><br>
     <label for="student-phone">Phone number: </label>
-    <input type="text" id="student-phone" th:field="*{phone}"><br>
+    <input type="tel" id="student-phone" th:field="*{phone}"><br>
     <label for="hour-price">Hour Price: </label>
     <input type="number" id="hour-price" th:field="*{hourPrice}"><br>
     <label for="password">Password: </label>
-    <input type="password" id="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'error-input'"><br>
+    <input type="password" id="password" th:field="*{password}"><br>
     <label for="c-password">Confirm password: </label>
-    <input type="password" id="c-password" th:field="*{confirmPassword}" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'error-input'"><br><br>
+    <input type="password" id="c-password" th:field="*{confirmPassword}"><br><br>
     <button type="button" onclick="window.history.go(-1)">Cancel</button>
     <input type="submit" value="Save">
 </form>
