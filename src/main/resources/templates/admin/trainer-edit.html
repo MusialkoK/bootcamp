@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Trainer Edit</title>
@@ -16,27 +16,34 @@
     <label for="role">Role: </label>
     <input type="text" id="role" th:field="*{role.id}"><br>
     <label for="student-firstname">First name: </label>
-    <input type="text" id="student-firstname" th:field="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? 'error-input'"><br>
+    <input type="text" id="student-firstname" th:field="*{firstName}"
+           th:classappend="${#fields.hasErrors('firstName')} ? 'error-input'"><br>
     <label for="student-lastName">Last name: </label>
-    <input type="text" id="student-lastName" th:field="*{lastName}" th:classappend="${#fields.hasErrors('lastName')} ? 'error-input'"><br>
+    <input type="text" id="student-lastName" th:field="*{lastName}"
+           th:classappend="${#fields.hasErrors('lastName')} ? 'error-input'"><br>
     <label for="student-email">E-mail: </label>
-    <input type="text" id="student-email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'error-input'"><br>
+    <input type="text" id="student-email" th:field="*{email}"
+           th:classappend="${#fields.hasErrors('email')} ? 'error-input'"><br>
     <label for="student-phone">Phone number: </label>
     <input type="text" id="student-phone" th:field="*{phone}"><br>
-    <label for="hour-price">Hour Price: </label>
-    <input type="text" id="hour-price" th:field="*{hourPrice}"><br>
+    <label sec:authorize="hasRole('ROLE_ADMIN')" for="hour-price">Hour Price: </label>
+    <input sec:authorize="hasRole('ROLE_ADMIN')" type="text" id="hour-price" th:field="*{hourPrice}"><br>
     <h1>Trainer for courses:</h1>
     <div th:each="course: *{trainerCourses}">
         <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
         <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
     </div>
     <p th:if="*{trainerCourses.isEmpty()}">No course available</p>
-    <h3>Possible courses for this trainer:</h3>
-    <div th:each="course: ${availableCourses}">
-        <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
-        <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
-    </div><br>
-    <p th:if="${availableCourses.isEmpty()}">No course available</p>
+    <br>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <h3>Possible courses for this trainer:</h3>
+        <div th:each="course: ${availableCourses}">
+            <input type="checkbox" th:field="*{trainerCourses}" th:value="${course.id}">
+            <span th:text="${course.name} + ' - ' + ${course.mode}"></span>
+        </div>
+        <br>
+        <p th:if="${availableCourses.isEmpty()}">No course available</p>
+    </div>
     <button type="button" onclick="window.history.go(-1)">Cancel</button>
     <input type="submit" value="Save">
 </form>

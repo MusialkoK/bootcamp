@@ -25,10 +25,10 @@
         </form>
     </div>
     <div sec:authorize="hasRole('ROLE_TRAINER')">
-        <form th:action="@{/trainer-dashboard/courses}" th:method="'post'">
+        <form th:action="@{/trainer/courses}" th:method="'get'">
             <button type="submit">View My courses</button><br><br>
         </form>
-        <form action="/admin/user/edit">
+        <form action="/trainer/edit">
             <button type="submit">Edit profile</button><br><br>
         </form>
     </div>

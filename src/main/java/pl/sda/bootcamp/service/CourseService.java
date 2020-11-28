@@ -7,6 +7,7 @@ import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.repository.CourseRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -34,6 +35,10 @@ public class CourseService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Course> getTrainerCourses(String username){
+        return getCoursesList().stream().filter(c->c.getTrainer().getEmail().equals(username)).collect(Collectors.toList());
     }
 
 }

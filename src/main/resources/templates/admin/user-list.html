@@ -31,21 +31,23 @@
         <td th:text="${user.role.getDescription()}"></td>
         <td th:text="${user.hourPrice}"></td>
         <td>
-                <form th:action="@{/admin/user/edit/{id}(id=${user.id})}" th:method="'get'">
+            <form th:if="${user.role.id!=1}" th:action="@{/admin/user/edit/{id}(id=${user.id})}" th:method="'get'">
                 <button type="submit" class="small">Edit</button>
             </form>
         </td>
         <td>
-            <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="'get'">
+            <form th:if="${user.role.id!=1}" th:action="@{/admin/user/delete/{id}(id=${user.id})}" th:method="'get'">
                 <button type="submit" class="small">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
-</table><br>
+</table>
+<br>
 <form th:action="@{'/'}" th:method="'get'">
     <button type="submit">Home</button>
-</form><br>
+</form>
+<br>
 <form th:action="@{'/user/signup'}" th:method="'get'">
     <button type="submit">Add Student</button>
 </form>

@@ -1,10 +1,11 @@
-package pl.sda.bootcamp.service;
+package pl.sda.bootcamp.service.rest;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.bootcamp.dto.CourseDto;
 import pl.sda.bootcamp.factory.CourseDtoFactory;
 import pl.sda.bootcamp.model.Course;
+import pl.sda.bootcamp.service.CourseService;
 
 import java.util.List;
 import java.util.stream.Collectors;

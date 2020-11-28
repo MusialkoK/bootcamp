@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sda.bootcamp.model.Course;
 import pl.sda.bootcamp.model.User;
+import pl.sda.bootcamp.security.AppUserDetails;
+import pl.sda.bootcamp.service.CourseService;
 import pl.sda.bootcamp.service.RoleService;
 import pl.sda.bootcamp.service.UserService;
 
@@ -26,6 +29,7 @@ public class TrainerController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final CourseService courseService;
 
     @GetMapping("")
     public String dashboard() {
@@ -54,11 +58,12 @@ public class TrainerController {
         }
     }
 
-    @PostMapping(value = "/courses")
-    public String viewCourses(Authentication authentication){
-        User trainer = (User) authentication.getPrincipal();
-        System.out.println(trainer.getId());
-        return "";
+    @GetMapping(value = "/courses")
+    public String viewCourses(Authentication authentication, Model model){
+        AppUserDetails trainer = (AppUserDetails) authentication.getPrincipal();
+        List<Course> courseList = courseService.getTrainerCourses(trainer.getUsername());
+        model.addAttribute("courseList", courseList);
+        return "course/list";
     }
 
     @GetMapping(value = "/dashboard")
@@ -66,6 +71,13 @@ public class TrainerController {
         User user = userService.getUserByMail(principal.getName());
         model.addAttribute("user",user);
         return "trainer/dashboard";
+    }
+
+    @GetMapping(value = "/edit")
+    public String trainerEdit(Authentication authentication){
+        AppUserDetails trainer = (AppUserDetails) authentication.getPrincipal();
+        Long id = userService.getUserByMail(trainer.getUsername()).getId();
+        return String.format("forward:/admin/user/edit/%d", id);
     }
 
 }

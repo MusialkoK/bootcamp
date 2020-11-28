@@ -2,6 +2,8 @@ package pl.sda.bootcamp.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,13 +74,22 @@ public class AdminController {
             userService.save(editedUser);
             return "redirect:/admin/user/list";
         }
-
     }
 
     @PostMapping(value = "/user/edit/trainer")
-    public String saveEditedTrainer(@ModelAttribute User editedUser) {
+    public String saveEditedTrainer(@ModelAttribute User editedUser, Authentication authentication) {
+        Long id = editedUser.getId();
+        User oldUser = userService.getUserById(id);
+        editedUser.setPassword(oldUser.getPassword());
+        editedUser.setConfirmPassword(oldUser.getConfirmPassword());
+        if (editedUser.getHourPrice()==null) editedUser.setHourPrice(oldUser.getHourPrice());
         userService.updateTrainer(editedUser);
-        return "redirect:/admin/user/list";
+        if(authentication.getAuthorities().stream().anyMatch(a->a.getAuthority().equals("ROLE_ADMIN"))){
+            return "redirect:/admin/user/list";
+        }else{
+            return "redirect:/";
+        }
+
     }
 
     @GetMapping(value = "/dashboard")
