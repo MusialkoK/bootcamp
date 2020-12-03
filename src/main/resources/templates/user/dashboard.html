@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Client dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/general.css}">
 </head>
 <body>
-<h1>Welcome</h1>
+<header th:replace="fragments/header :: welcome"></header>
+<header th:replace="fragments/header :: menu"></header>
 </body>
 </html>
 

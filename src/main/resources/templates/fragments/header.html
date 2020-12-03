@@ -32,14 +32,16 @@
             <button type="submit">Edit profile</button><br><br>
         </form>
     </div>
+
     <div sec:authorize="hasRole('ROLE_USER')">
-        <form action="/course/list">
+        <form th:action="@{/user/courses}" th:method="'get'">
             <button type="submit">View my courses</button><br><br>
         </form>
-        <form action="/admin/user/edit">
+        <form th:action="@{/user/edit}" th:method="'get'">
             <button type="submit">Edit profile</button><br><br>
         </form>
     </div>
+
     <form sec:authorize="isAnonymous()" th:action="@{/login}" th:method="post">
         <button type="submit">Login</button><br><br>
     </form>

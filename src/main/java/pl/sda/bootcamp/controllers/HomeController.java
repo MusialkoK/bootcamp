@@ -45,7 +45,7 @@ public class HomeController {
             case "ROLE_TRAINER":
                 return "redirect:/trainer/dashboard";
             case "ROLE_USER":
-                return "redirect:/user-dashboard";
+                return "redirect:/user/dashboard";
             default:
                 return "home";
         }
